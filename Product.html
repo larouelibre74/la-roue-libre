@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détail du produit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-amber-100 text-blue-900 antialiased">
+
+  <!-- Header -->
+  <header class="bg-amber-100 p-4 flex justify-between items-center shadow-sm">
+    <a href="index.html">
+      <img src="https://i.postimg.cc/yYHHR98m/logo-la-roue-libre.png" alt="Logo La Roue Libre" class="w-16 h-16 rounded-full">
+    </a>
+    <nav class="flex gap-4 text-sm font-semibold">
+      <a href="index.html" class="hover:underline">Accueil</a>
+      <a href="shop.html" class="hover:underline">Boutique</a>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main class="p-6 max-w-4xl mx-auto">
+    <div id="product-detail" class="bg-white p-6 rounded-lg shadow-md">
+      <p class="text-center text-gray-600">Chargement du produit...</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-amber-100 p-4 text-center mt-8">
+    © 2025 La Roue Libre
+  </footer>
+
+  <script>
+    // Get product ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    const sheetUrl = 'https://api.sheetbest.com/sheets/726c0ec4-43ff-4a4e-9550-5cf9efc2efcb';
+
+    fetch(sheetUrl)
+      .then(response => response.json())
+      .then(data => {
+        const product = data.find(item => 
+          (item.ID || item.id || "").trim() === productId
+        );
+        const container = document.getElementById('product-detail');
+
+        if (!product) {
+          container.innerHTML = `<p class="text-center text-red-600">Produit non trouvé.</p>`;
+          return;
+        }
+
+        const image = product.ImageURL || product.imageurl || '';
+        const name = product.Name || product.name || 'Produit';
+        const price = product.Price || product.price || '';
+        const desc = product.Description || product.description || '';
+
+        container.innerHTML = `
+          <img src="${image}" alt="${name}" class="w-full h-80 object-cover rounded-md mb-4">
+          <h1 class="text-2xl font-bold mb-2">${name}</h1>
+          <p class="text-lg text-gray-700 mb-2">Prix: ${price}</p>
+          <p class="text-gray-600 mb-6">${desc}</p>
+
+          <a href="https://wa.me/33769261791?text=Bonjour,%20je%20suis%20intéressé%20par%20le%20${encodeURIComponent(name)}" 
+             target="_blank" 
+             class="inline-block bg-green-600 text-white px-6 py-3 rounded-md font-semibold">
+             Acheter via WhatsApp
+          </a>
+        `;
+      })
+      .catch(err => {
+        console.error('Erreur:', err);
+        document.getElementById('product-detail').innerHTML = 
+          `<p class="text-center text-red-600">Impossible de charger le produit.</p>`;
+      });
+  </script>
+
+</body>
+</html>
