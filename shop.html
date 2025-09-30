@@ -55,7 +55,7 @@
           const image = item.ImageURL || item.imageurl || '';
           const name = item.Name || item.name || 'Produit';
           const price = item.Price || item.price || '';
-          const desc = item.Description || item.description || '';
+          const desc = item.ShortDescription || item.shortdescription || '';
 
           const div = document.createElement('div');
           div.className = "bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition";
