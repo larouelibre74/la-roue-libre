@@ -17,7 +17,6 @@
   </style>
 </head>
 <body class="antialiased">
-  <!-- Header -->
   <header class="shadow-sm">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -37,7 +36,6 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero-bg py-20 text-white">
     <div class="max-w-6xl mx-auto px-6">
       <div class="bg-black/30 p-8 rounded-lg max-w-2xl">
@@ -51,7 +49,6 @@
     </div>
   </section>
 
-  <!-- Services Section -->
   <section id="services" class="max-w-6xl mx-auto px-6 py-12">
     <h3 class="text-2xl font-bold">Nos services</h3>
     <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -70,7 +67,6 @@
     </div>
   </section>
 
-  <!-- Pricing Section -->
   <section id="pricing" class="max-w-6xl mx-auto px-6 py-8">
     <h3 class="text-2xl font-bold">Tarifs Atelier</h3>
     <div class="mt-4 bg-white p-6 rounded-lg shadow-sm">
@@ -120,7 +116,6 @@
     </div>
   </section>
 
-  <!-- About Section -->
   <section id="about" class="max-w-6xl mx-auto px-6 py-8">
     <div class="bg-white p-6 rounded-lg shadow-sm">
       <h3 class="text-xl font-bold">À propos de La Roue Libre</h3>
@@ -128,11 +123,8 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
   <section id="contact" class="max-w-6xl mx-auto px-6 py-10">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      
-      <!-- Contact & Horaires -->
       <div class="bg-white p-6 rounded-lg shadow-sm">
         <h4 class="font-semibold text-lg">Contact & Horaires</h4>
         <div class="flex items-center gap-3 mt-3">
@@ -156,10 +148,9 @@
           <a href="mailto:larouelibre.74@gmail.com" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-md">Nous écrire</a>
           <a href="#" class="ml-3 inline-block border px-4 py-2 rounded-md">Réserver en ligne</a>
         </div>
-        <p class="text-xs mt-4">TVA: appliquée sur tous les tarifs communiqués</p>
+        <p class="text-xs mt-4"> TVA: appliquée sur tous les tarifs communiqués</p>
       </div>
 
-      <!-- Réservation rapide -->
       <div class="bg-white p-6 rounded-lg shadow-sm">
         <h4 class="font-semibold">Réservation rapide</h4>
         <form action="mailto:larouelibre.74@gmail.com" method="POST" enctype="text/plain" class="space-y-3">
@@ -170,20 +161,18 @@
           <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Envoyer la demande</button>
         </form>
       </div>
-
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="border-t mt-8">
     <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col items-center justify-center text-xs text-center">
       <div>© 2025 La Roue Libre — Tous droits réservés.</div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script>
     lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     // --- Fetch first 3 products from Google Sheet ---
     const sheetJsonUrl = 'https://spreadsheets.google.com/feeds/list/12d4SZG3Vjw-vjFxkiDnyuIDfgwp6Lcei5mluuerYHMI/od6/public/values?alt=json';
@@ -210,4 +199,3 @@
   </script>
 </body>
 </html>
-
