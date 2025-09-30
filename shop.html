@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique La Roue Libre</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-amber-100 text-blue-900 antialiased">
+
+  <!-- Header -->
+  <header class="bg-amber-100 p-4 flex justify-between items-center shadow-sm">
+    <img src="https://i.postimg.cc/yYHHR98m/logo-la-roue-libre.png" alt="Logo La Roue Libre" class="w-16 h-16 rounded-full">
+    <nav class="flex gap-4 text-sm font-semibold">
+      <a href="#" class="hover:underline">Accueil</a>
+      <a href="#" class="hover:underline">Boutique</a>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main class="p-6 max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8">Boutique La Roue Libre</h1>
+    <div id="products" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    <p id="no-products" class="text-center text-gray-700 mt-4 hidden">Aucun produit disponible pour le moment.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-amber-100 p-4 text-center mt-8">
+    © 2025 La Roue Libre
+  </footer>
+
+  <!-- Fetch products from Sheet.best -->
+  <script>
+    const sheetUrl = 'https://api.sheetbest.com/sheets/726c0ec4-43ff-4a4e-9550-5cf9efc2efcb'; // Your Sheet.best API
+
+    fetch(sheetUrl)
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('products');
+        const noProducts = document.getElementById('no-products');
+        container.innerHTML = ''; // Clear any previous content
+
+        if (!data || data.length === 0) {
+          noProducts.classList.remove('hidden');
+          return;
+        } else {
+          noProducts.classList.add('hidden');
+        }
+
+        data.forEach(item => {
+          // Try to get the correct fields, fallback if capitalization differs
+          const image = item.ImageURL || item.imageurl || '';
+          const name = item.Name || item.name || 'Produit';
+          const price = item.Price || item.price || '';
+          const desc = item.Description || item.description || '';
+
+          const div = document.createElement('div');
+          div.className = "bg-white p-4 rounded-lg shadow-md";
+          div.innerHTML = `
+            <img src="${image}" alt="${name}" class="w-full h-48 object-cover rounded-md">
+            <h2 class="mt-2 text-xl font-semibold">${name}</h2>
+            <p class="text-lg text-gray-700">${price}</p>
+            <p class="mt-1 text-sm text-gray-600">${desc}</p>
+          `;
+          container.appendChild(div);
+        });
+      })
+      .catch(err => {
+        console.error('Error fetching products:', err);
+        document.getElementById('no-products').textContent = 'Impossible de charger les produits pour le moment.';
+        document.getElementById('no-products').classList.remove('hidden');
+      });
+  </script>
+
+</body>
+</html>
