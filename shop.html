@@ -10,10 +10,12 @@
 
   <!-- Header -->
   <header class="bg-amber-100 p-4 flex justify-between items-center shadow-sm">
-    <img src="https://i.postimg.cc/yYHHR98m/logo-la-roue-libre.png" alt="Logo La Roue Libre" class="w-16 h-16 rounded-full">
+    <a href="index.html">
+      <img src="https://i.postimg.cc/yYHHR98m/logo-la-roue-libre.png" alt="Logo La Roue Libre" class="w-16 h-16 rounded-full">
+    </a>
     <nav class="flex gap-4 text-sm font-semibold">
-      <a href="#" class="hover:underline">Accueil</a>
-      <a href="#" class="hover:underline">Boutique</a>
+      <a href="index.html" class="hover:underline">Accueil</a>
+      <a href="shop.html" class="hover:underline">Boutique</a>
     </nav>
   </header>
 
@@ -48,20 +50,26 @@
         }
 
         data.forEach(item => {
-          // Try to get the correct fields, fallback if capitalization differs
+          // Get sheet values
+          const id = item.ID || item.id || '';
           const image = item.ImageURL || item.imageurl || '';
           const name = item.Name || item.name || 'Produit';
           const price = item.Price || item.price || '';
           const desc = item.Description || item.description || '';
 
           const div = document.createElement('div');
-          div.className = "bg-white p-4 rounded-lg shadow-md";
+          div.className = "bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition";
+
           div.innerHTML = `
-            <img src="${image}" alt="${name}" class="w-full h-48 object-cover rounded-md">
-            <h2 class="mt-2 text-xl font-semibold">${name}</h2>
-            <p class="text-lg text-gray-700">${price}</p>
-            <p class="mt-1 text-sm text-gray-600">${desc}</p>
+            <a href="product.html?id=${id}">
+              <img src="${image}" alt="${name}" class="w-full h-48 object-cover rounded-md">
+              <h2 class="mt-2 text-xl font-semibold">${name}</h2>
+              <p class="text-lg text-gray-700">${price}</p>
+              <p class="mt-1 text-sm text-gray-600 line-clamp-2">${desc}</p>
+              <span class="text-blue-600 hover:underline">Voir le produit</span>
+            </a>
           `;
+
           container.appendChild(div);
         });
       })
@@ -70,6 +78,24 @@
         document.getElementById('no-products').textContent = 'Impossible de charger les produits pour le moment.';
         document.getElementById('no-products').classList.remove('hidden');
       });
+  </script>
+
+  <!-- Add Tailwind plugin for text clamping (to shorten description) -->
+  <script>
+    tailwind.config = {
+      plugins: [
+        function ({ addUtilities }) {
+          addUtilities({
+            '.line-clamp-2': {
+              overflow: 'hidden',
+              display: '-webkit-box',
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: '2',
+            }
+          })
+        }
+      ]
+    }
   </script>
 
 </body>
